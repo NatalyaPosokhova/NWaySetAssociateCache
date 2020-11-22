@@ -26,6 +26,8 @@ namespace NWaySetAssociateCache
         /// </summary>
         private int _nSet;
 
+        private const int maxSetNumber = 8;
+
         private int NSet
         {
             get
@@ -34,7 +36,7 @@ namespace NWaySetAssociateCache
             }
             set
             {
-                _nSet = (value <= _cacheSize && value > 0) ? value : throw new CacheException("N ways number exceeds cache size.");
+                _nSet = (value <= maxSetNumber && value > 0) ? value : throw new CacheException("N ways number exceeds cache size.");
             }
         }
 
