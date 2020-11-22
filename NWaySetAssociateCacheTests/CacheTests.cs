@@ -30,6 +30,7 @@ namespace NWaySetAssociateCacheTests
 
             //Assert
             Assert.AreEqual(expectedValue, actualValue);
+            algorithm.Received().Add(key, expectedValue);
         }
 
         [Test]
