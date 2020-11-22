@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using NWaySetAssociateCache;
 using NSubstitute;
+using System.Collections.Generic;
 
 namespace NWaySetAssociateCacheTests
 {
@@ -15,7 +16,7 @@ namespace NWaySetAssociateCacheTests
         public void TryPutDataToCacheShouldBeSuccess()
         {
             //Arrange
-            var algorithm = Substitute.For<IAlgorithm>();
+            var algorithm = Substitute.For<IAlgorithm<string>>();
             int cacheSize = 16;
             int nSet = 4;
             string key = "1";
@@ -26,6 +27,7 @@ namespace NWaySetAssociateCacheTests
 
             //Actual
             var actualValue = cache.Get(key);
+
             //Assert
             Assert.AreEqual(expectedValue, actualValue);
         }

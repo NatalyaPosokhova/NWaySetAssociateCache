@@ -5,7 +5,8 @@ namespace NWaySetAssociateCache
 {
     public class Cache<T>
     {
-        private IAlgorithm _algorithm;
+        public List<DataBlock<T>> cacheBlocks;
+        private IAlgorithm<T> _algorithm;
         private readonly int  _cacheSize;
         private readonly int _nSet;
 
@@ -15,11 +16,21 @@ namespace NWaySetAssociateCache
         /// <param name="cacheSize">Defines cache size</param>
         /// <param name="nSet">Defines ways' quantity</param>
         /// <param name="algorithm">Defines the cleaning/updating cache algorithm</param>
-        public Cache(int cacheSize, int nSet, IAlgorithm algorithm)
+        public Cache(int cacheSize, int nSet, IAlgorithm<T> algorithm)
         {
             _algorithm = algorithm;
             _nSet = nSet;
             _cacheSize = cacheSize;
+            cacheBlocks = new List<DataBlock<T>>();
+        }
+
+        /// <summary>
+        /// Gets Block Index from 0 to N(ways number)
+        /// </summary>
+        /// <returns>Block Index</returns>
+        public int GetDataBlockIndex(T key)
+        {
+            return Math.Abs(key.GetHashCode() % _nSet);
         }
 
         /// <summary>
@@ -29,7 +40,9 @@ namespace NWaySetAssociateCache
         /// <param name="value">Value</param>
         public void Put(T key, T value)
         {
-            throw new NotImplementedException();
+            var index = GetDataBlockIndex(key);
+            cacheBlocks.Insert(index, new DataBlock<T>() {Key = key, Value = value });
+            _algorithm.Add(key, value);
         }
 
         /// <summary>
