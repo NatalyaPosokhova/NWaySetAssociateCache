@@ -54,10 +54,17 @@ namespace NWaySetAssociateCache
         public void Put(T key, T value)
         {
             var index = GetDataBlockIndex(key);
+
             if(cacheBlocks[index] == null)
             {
                 cacheBlocks[index] = new Dictionary<T, T> { };
             }
+
+            if(cacheBlocks[index].ContainsKey(key))
+            {
+                throw new CacheException($"The {key} is already exists.");
+            }
+
             cacheBlocks[index].Add(key, value);
             _algorithm.Add(key, value);
         }
