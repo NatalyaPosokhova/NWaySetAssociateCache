@@ -62,7 +62,7 @@ namespace NWaySetAssociateCache
             T value;
             if(!cacheBlocks[index].TryGetValue(key, out value))
             {
-                throw new CacheException("Cannot get value by key.");
+                throw new CacheException("Cache error: Cannot get value by key.");
             }
             return value;
         }
