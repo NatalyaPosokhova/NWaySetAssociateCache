@@ -44,5 +44,21 @@ namespace NWaySetAssociateCacheTests
             //Assert
             Assert.Throws<CacheException>(() => new Cache<int>(cacheSize, nSet, algorithm));
         }
+
+        [Test]
+        public void TryGetNotExistedValueShouldBeError()
+        {
+            //Arrange
+            var algorithm = Substitute.For<IAlgorithm<int>>();
+            int cacheSize = 20;
+            int nSet = 5;
+            int key = 123;
+
+            var cache = new Cache<int>(cacheSize, nSet, algorithm);
+
+            //Actual
+            //Assert
+            Assert.Throws<CacheException>(() => cache.Get(key));
+        }
     }
 }
