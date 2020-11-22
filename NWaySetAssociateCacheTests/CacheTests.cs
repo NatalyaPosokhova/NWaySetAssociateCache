@@ -13,7 +13,7 @@ namespace NWaySetAssociateCacheTests
         }
 
         [Test]
-        public void TryPutDataToCacheShouldBeSuccess()
+        public void TryPutGetDataToCacheShouldBeSuccess()
         {
             //Arrange
             var algorithm = Substitute.For<IAlgorithm<string>>();
@@ -30,6 +30,19 @@ namespace NWaySetAssociateCacheTests
 
             //Assert
             Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [Test]
+        public void TrySetTooMuchNWaysShouldBeError()
+        {
+            //Arrange
+            var algorithm = Substitute.For<IAlgorithm<int>>();
+            int cacheSize = 4;
+            int nSet = 20;
+
+            //Actual
+            //Assert
+            Assert.Throws<CacheException>(() => new Cache<int>(cacheSize, nSet, algorithm));
         }
     }
 }

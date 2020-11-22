@@ -8,8 +8,8 @@ namespace NWaySetAssociateCache
     {
         public Dictionary<T, T>[] cacheBlocks;
         private IAlgorithm<T> _algorithm;
-        private readonly int  _cacheSize;
-        private readonly int _nSet;
+        private readonly int _cacheSize;
+        private int _nSet;
 
         /// <summary>
         /// Contsructor for cache memory.
@@ -20,13 +20,13 @@ namespace NWaySetAssociateCache
         public Cache(int cacheSize, int nSet, IAlgorithm<T> algorithm)
         {
             _algorithm = algorithm;
-            _nSet = nSet;
             _cacheSize = cacheSize;
+            _nSet = nSet;
             cacheBlocks = new Dictionary<T, T>[nSet - 1];
         }
 
         /// <summary>
-        /// Gets Block Index from 0 to N(ways number)
+        /// Gets Block Index from 0 to N-1(ways number)
         /// </summary>
         /// <returns>Block Index</returns>
         public int GetDataBlockIndex(T key)
