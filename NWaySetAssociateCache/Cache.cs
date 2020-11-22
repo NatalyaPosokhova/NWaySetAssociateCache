@@ -6,9 +6,24 @@ namespace NWaySetAssociateCache
 {
     public class Cache<T>
     {
+        /// <summary>
+        /// Store datablocks of cache.
+        /// </summary>
         public Dictionary<T, T>[] cacheBlocks;
+
+        /// <summary>
+        /// Determines an algorithm of cache updating and removing unused key/value pairs.
+        /// </summary>
         private IAlgorithm<T> _algorithm;
+
+        /// <summary>
+        /// Determines all cache size.
+        /// </summary>
         private readonly int _cacheSize;
+
+        /// <summary>
+        /// Number of ways.
+        /// </summary>
         private int _nSet;
 
         private int NSet
@@ -19,7 +34,7 @@ namespace NWaySetAssociateCache
             }
             set
             {
-                _nSet = (value <= _cacheSize) ? value : throw new CacheException("N ways number exceeds cache size.");
+                _nSet = (value <= _cacheSize && value > 0) ? value : throw new CacheException("N ways number exceeds cache size.");
             }
         }
 
@@ -55,17 +70,20 @@ namespace NWaySetAssociateCache
         {
             var index = GetDataBlockIndex(key);
 
-            if(cacheBlocks[index] == null)
+            if (cacheBlocks[index] == null)
             {
                 cacheBlocks[index] = new Dictionary<T, T> { };
             }
 
-            if(cacheBlocks[index].ContainsKey(key))
+            try
             {
-                throw new CacheException($"The {key} is already exists.");
+                cacheBlocks[index].Add(key, value);
+            }
+            catch
+            {
+                throw new CacheException("Cannot add key/value pair to cache.");
             }
 
-            cacheBlocks[index].Add(key, value);
             _algorithm.Add(key, value);
         }
 
@@ -79,11 +97,14 @@ namespace NWaySetAssociateCache
         {
             int index = GetDataBlockIndex(key);
             T value;
+
             if(cacheBlocks[index] == null || !cacheBlocks[index].TryGetValue(key, out value))
             {
                 throw new CacheException("Cache error: Cannot get value by key.");
             }
+
             _algorithm.Update(key);
+
             return value;
         }
     }

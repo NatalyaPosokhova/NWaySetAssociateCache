@@ -13,7 +13,7 @@ namespace NWaySetAssociateCacheTests
         }
 
         [Test]
-        public void TryPutGetDataToCacheShouldBeSuccess()
+        public void TryPutGetDataToCacheShouldBeSuccessTest()
         {
             //Arrange
             var algorithm = Substitute.For<IAlgorithm<string>>();
@@ -35,7 +35,7 @@ namespace NWaySetAssociateCacheTests
         }
 
         [Test]
-        public void TrySetTooMuchNWaysShouldBeError()
+        public void TrySetTooMuchNWaysShouldBeErrorTest()
         {
             //Arrange
             var algorithm = Substitute.For<IAlgorithm<int>>();
@@ -48,7 +48,7 @@ namespace NWaySetAssociateCacheTests
         }
 
         [Test]
-        public void TryGetNotExistedValueShouldBeError()
+        public void TryGetNotExistedValueShouldBeErrorTest()
         {
             //Arrange
             var algorithm = Substitute.For<IAlgorithm<int>>();
@@ -64,7 +64,7 @@ namespace NWaySetAssociateCacheTests
         }
         
         [Test]
-        public void TryPutExistedKeyValuePairShouldBeError()
+        public void TryPutExistedKeyValuePairShouldBeErrorTest()
         {
             //Arrange
             var algorithm = Substitute.For<IAlgorithm<int>>();
