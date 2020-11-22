@@ -11,6 +11,18 @@ namespace NWaySetAssociateCache
         private readonly int _cacheSize;
         private int _nSet;
 
+        private int NSet
+        {
+            get
+            {
+                return _nSet;
+            }
+            set
+            {
+                _nSet = (value <= _cacheSize) ? value : throw new CacheException("N ways number exceeds cache size.");
+            }
+        }
+
         /// <summary>
         /// Contsructor for cache memory.
         /// </summary>
@@ -21,7 +33,7 @@ namespace NWaySetAssociateCache
         {
             _algorithm = algorithm;
             _cacheSize = cacheSize;
-            _nSet = nSet;
+            NSet = nSet;
             cacheBlocks = new Dictionary<T, T>[nSet - 1];
         }
 
@@ -31,7 +43,7 @@ namespace NWaySetAssociateCache
         /// <returns>Block Index</returns>
         public int GetDataBlockIndex(T key)
         {
-            return Math.Abs(key.GetHashCode() % _nSet);
+            return Math.Abs(key.GetHashCode() % NSet);
         }
 
         /// <summary>
