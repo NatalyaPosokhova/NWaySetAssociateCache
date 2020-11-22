@@ -31,6 +31,5 @@ namespace NWaySetAssociateCacheTests
             //Assert
             Assert.AreEqual(expectedValue, actualValue);
         }
-       
     }
 }

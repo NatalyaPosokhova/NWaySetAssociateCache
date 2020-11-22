@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NWaySetAssociateCache
 {
     public class Cache<T>
     {
-        public List<DataBlock<T>> cacheBlocks;
+        public Dictionary<T, T>[] cacheBlocks;
         private IAlgorithm<T> _algorithm;
         private readonly int  _cacheSize;
         private readonly int _nSet;
@@ -21,7 +22,7 @@ namespace NWaySetAssociateCache
             _algorithm = algorithm;
             _nSet = nSet;
             _cacheSize = cacheSize;
-            cacheBlocks = new List<DataBlock<T>>();
+            cacheBlocks = new Dictionary<T, T>[nSet - 1];
         }
 
         /// <summary>
@@ -41,7 +42,11 @@ namespace NWaySetAssociateCache
         public void Put(T key, T value)
         {
             var index = GetDataBlockIndex(key);
-            cacheBlocks.Insert(index, new DataBlock<T>() {Key = key, Value = value });
+            if(cacheBlocks[index] == null)
+            {
+                cacheBlocks[index] = new Dictionary<T, T> { };
+            }
+            cacheBlocks[index].Add(key, value);
             _algorithm.Add(key, value);
         }
 
@@ -51,9 +56,15 @@ namespace NWaySetAssociateCache
         /// <typeparam name="T">Parametrs type</typeparam>
         /// <param name="key">Key</param>
         /// <returns>Value</returns>
-        public T Get<T>(T key)
+        public T Get(T key)
         {
-            throw new NotImplementedException();
+            int index = GetDataBlockIndex(key);
+            T value;
+            if(!cacheBlocks[index].TryGetValue(key, out value))
+            {
+                throw new CacheException("Cannot get value by key.");
+            }
+            return value;
         }
     }
 }
