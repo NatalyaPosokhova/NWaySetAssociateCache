@@ -72,7 +72,7 @@ namespace NWaySetAssociateCache
         {
             int index = GetDataBlockIndex(key);
             T value;
-            if(!cacheBlocks[index].TryGetValue(key, out value))
+            if(cacheBlocks[index] == null || !cacheBlocks[index].TryGetValue(key, out value))
             {
                 throw new CacheException("Cache error: Cannot get value by key.");
             }
