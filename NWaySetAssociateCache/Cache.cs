@@ -34,7 +34,7 @@ namespace NWaySetAssociateCache
             _algorithm = algorithm;
             _cacheSize = cacheSize;
             NSet = nSet;
-            cacheBlocks = new Dictionary<T, T>[nSet - 1];
+            cacheBlocks = new Dictionary<T, T>[NSet];
         }
 
         /// <summary>
@@ -76,6 +76,7 @@ namespace NWaySetAssociateCache
             {
                 throw new CacheException("Cache error: Cannot get value by key.");
             }
+            _algorithm.Update(key);
             return value;
         }
     }
