@@ -27,7 +27,7 @@ namespace NWaySetAssociateCache
         {
             throw new NotImplementedException();
         }
-        public T Get(T key)
+        public T GetValue(T key)
         {
             throw new NotImplementedException();
         }

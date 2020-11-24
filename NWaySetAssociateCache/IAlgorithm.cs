@@ -10,5 +10,6 @@ namespace NWaySetAssociateCache
         public void Update(T key);
 
         public void Remove(T key);
+        public T GetValue(T key);
     }
 }

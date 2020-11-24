@@ -18,7 +18,28 @@ namespace NWaySetAssociateCacheTests
             algorithm.Add(key, expectedValue);
 
             //Actual
-            var actualValue = algorithm.Get(key);
+            var actualValue = algorithm.GetValue(key);
+            //Assert
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [Test]
+        public void AddEntryViaCacheShouldBeSuccess()
+        {
+            //Arrange
+            int cacheSize = 16;
+            int nSet = 3;
+            string key = "key";
+            string expectedValue = "value";
+
+            var algorithm = new LRUAlgorithm<string>(cacheSize);
+
+            var cache = new Cache<string>(cacheSize, nSet, algorithm);
+            cache.Put(key, expectedValue);
+
+            //Actual
+            var actualValue = algorithm.GetValue(key);
+
             //Assert
             Assert.AreEqual(expectedValue, actualValue);
         }
