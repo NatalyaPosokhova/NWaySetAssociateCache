@@ -47,10 +47,11 @@ namespace NWaySetAssociateCacheTests
         }
 
         [Test]
-        public void RemoveEntryFromCacheShouldBeSuccess()
+        public void RemoveEntryViaAlgorithmShouldBeSuccess()
         {
             //Arrange
             int cacheSize = 255;
+            int nSet = 1;
             double key = 6.4;
             double value = 2.2;
 
@@ -58,10 +59,14 @@ namespace NWaySetAssociateCacheTests
             algorithm.Add(key, value);
             algorithm.Remove(key);
 
+            var cache = new Cache<double>(cacheSize, nSet, algorithm);
+
             //Actual
             //Assert
             Assert.Throws<ArgumentNullException>(() => algorithm.GetValue(key));
+            Assert.Throws<ArgumentNullException>(() => cache.Get(key));
         }
+
 
     }
 }
