@@ -31,6 +31,11 @@ namespace NWaySetAssociateCache
         {
             throw new NotImplementedException();
         }
+
+        public int GetKeyValueHashMapOrder(T key)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

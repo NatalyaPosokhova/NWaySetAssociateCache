@@ -67,6 +67,53 @@ namespace NWaySetAssociateCacheTests
             Assert.Throws<ArgumentNullException>(() => cache.Get(key));
         }
 
+        [Test]
+        public void UpdateEntryViaAlgorithmShouldBeFirst()
+        {
+            //Arrange
+            int cacheSize = 200;
+            int key1 = 1;
+            int value1 = 1;
+            int key2 = 2;
+            int value2 = 2;
+            int expectedOrder = 0;
 
+            var algorithm = new LRUAlgorithm<int>(cacheSize);
+            algorithm.Add(key1, value1);
+            algorithm.Add(key2, value2);
+            algorithm.Update(key1);
+
+            //Actual
+            var actualOrder = algorithm.GetKeyValueHashMapOrder(key1);
+
+            //Assert
+            Assert.AreEqual(expectedOrder, actualOrder);
+        }
+
+        [Test]
+        public void GetEntryViaCacheShouldBeFirst()
+        {
+            //Arrange
+            int cacheSize = 256;
+            int nSet = 5;
+            string key1 = "1";
+            string value1 = "1";
+            string key2 = "2";
+            string value2 = "2";
+            int expectedOrder = 0;
+
+            var algorithm = new LRUAlgorithm<string>(cacheSize);
+            algorithm.Add(key1, value1);
+            algorithm.Add(key2, value2);
+
+            var cache = new Cache<string>(cacheSize, nSet, algorithm);
+            cache.Get(key1);
+
+            //Actual
+            var actualOrder = algorithm.GetKeyValueHashMapOrder(key1);
+
+            //Assert
+            Assert.AreEqual(expectedOrder, actualOrder);
+        }
     }
 }
