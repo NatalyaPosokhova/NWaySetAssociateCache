@@ -56,10 +56,11 @@ namespace NWaySetAssociateCacheTests
             double value = 2.2;
 
             var algorithm = new LRUAlgorithm<double>(cacheSize);
-            algorithm.Add(key, value);
-            algorithm.Remove(key);
 
             var cache = new Cache<double>(cacheSize, nSet, algorithm);
+            cache.Put(key, value);
+
+            algorithm.Remove(key);
 
             //Actual
             //Assert
@@ -103,10 +104,11 @@ namespace NWaySetAssociateCacheTests
             int expectedOrder = 0;
 
             var algorithm = new LRUAlgorithm<string>(cacheSize);
-            algorithm.Add(key1, value1);
-            algorithm.Add(key2, value2);
 
             var cache = new Cache<string>(cacheSize, nSet, algorithm);
+
+            cache.Put(key1, value1);
+            cache.Put(key2, value2);
             cache.Get(key1);
 
             //Actual
