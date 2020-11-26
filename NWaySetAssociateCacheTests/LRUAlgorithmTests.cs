@@ -57,48 +57,19 @@ namespace NWaySetAssociateCacheTests
         }
 
         [Test]
-        public void RemoveEntryViaAlgorithmShouldBeSuccess()
+        public void TryGetFromNullCacheShouldBeErrorTest()
         {
             //Arrange
-            int cacheSize = 255;
-            int nSet = 1;
-            double key = 6.4;
-            double value = 2.2;
+            int cacheSize = 10;
+            int nSet = 5;
+            string key = "134";
 
-            var algorithm = new LRUAlgorithm<double>(cacheSize);
-
-            var cache = new Cache<double>(cacheSize, nSet, algorithm);
-            cache.Put(key, value);
-
-            algorithm.Remove(key);
+            var algorithm = new LRUAlgorithm<string>(cacheSize);
+            var cache = new Cache<string>(cacheSize, nSet, algorithm);
 
             //Actual
             //Assert
-            Assert.Throws<ArgumentNullException>(() => algorithm.GetValue(key));
-            Assert.Throws<ArgumentNullException>(() => cache.Get(key));
-        }
-
-        [Test]
-        public void UpdateEntryViaAlgorithmShouldBeFirst()
-        {
-            //Arrange
-            int cacheSize = 200;
-            int key1 = 1;
-            int value1 = 1;
-            int key2 = 2;
-            int value2 = 2;
-            int expectedOrder = 0;
-
-            var algorithm = new LRUAlgorithm<int>(cacheSize);
-            algorithm.Add(key1, value1);
-            algorithm.Add(key2, value2);
-            algorithm.Update(key1);
-
-            //Actual
-            var actualOrder = algorithm.GetKeyValueHashMapOrder(key1);
-
-            //Assert
-            Assert.AreEqual(expectedOrder, actualOrder);
+            Assert.Throws<CacheException>(() => algorithm.GetValue(key));
         }
 
         [Test]
@@ -129,6 +100,28 @@ namespace NWaySetAssociateCacheTests
         }
 
         [Test]
+        public void RemoveEntryViaAlgorithmShouldBeSuccess()
+        {
+            //Arrange
+            int cacheSize = 255;
+            int nSet = 1;
+            double key = 6.4;
+            double value = 2.2;
+
+            var algorithm = new LRUAlgorithm<double>(cacheSize);
+
+            var cache = new Cache<double>(cacheSize, nSet, algorithm);
+            cache.Put(key, value);
+
+            algorithm.Remove(key);
+
+            //Actual
+            //Assert
+            Assert.Throws<ArgumentNullException>(() => algorithm.GetValue(key));
+            Assert.Throws<ArgumentNullException>(() => cache.Get(key));
+        }
+
+         [Test]
         public void TryRemoveNullEntryShouldBeError()
         {
             //Arrange
@@ -144,6 +137,29 @@ namespace NWaySetAssociateCacheTests
             //Actual
             //Assert
             Assert.Throws<CacheException>(() => algorithm.Remove(keyToRemove));
+        }
+
+        [Test]
+        public void UpdateEntryViaAlgorithmShouldBeFirst()
+        {
+            //Arrange
+            int cacheSize = 200;
+            int key1 = 1;
+            int value1 = 1;
+            int key2 = 2;
+            int value2 = 2;
+            int expectedOrder = 0;
+
+            var algorithm = new LRUAlgorithm<int>(cacheSize);
+            algorithm.Add(key1, value1);
+            algorithm.Add(key2, value2);
+            algorithm.Update(key1);
+
+            //Actual
+            var actualOrder = algorithm.GetKeyValueHashMapOrder(key1);
+
+            //Assert
+            Assert.AreEqual(expectedOrder, actualOrder);
         }
 
         [Test]
@@ -164,20 +180,5 @@ namespace NWaySetAssociateCacheTests
             Assert.DoesNotThrow(() => algorithm.Update(key));
         }
 
-        [Test]
-        public void TryGetFromNullCacheShouldBeErrorTest()
-        {
-            //Arrange
-            int cacheSize = 10;
-            int nSet = 5;
-            string key = "134";
-
-            var algorithm = new LRUAlgorithm<string>(cacheSize);
-            var cache = new Cache<string>(cacheSize, nSet, algorithm);
-
-            //Actual
-            //Assert
-            Assert.Throws<CacheException>(() => algorithm.GetValue(key));
-        }
     }
 }
