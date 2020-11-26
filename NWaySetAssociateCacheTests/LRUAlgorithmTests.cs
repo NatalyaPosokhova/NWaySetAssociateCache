@@ -31,19 +31,29 @@ namespace NWaySetAssociateCacheTests
             //Arrange
             int cacheSize = 16;
             int nSet = 3;
-            string key = "key";
-            string expectedValue = "value";
+            string key1 = "key1";
+            string expectedValue1 = "value1";
+            string key2 = "key2";
+            string expectedValue2 = "value2";
+            string key3 = "key3";
+            string expectedValue3 = "value3";
 
             var algorithm = new LRUAlgorithm<string>(cacheSize);
 
             var cache = new Cache<string>(cacheSize, nSet, algorithm);
-            cache.Put(key, expectedValue);
+            cache.Put(key1, expectedValue1);
+            cache.Put(key2, expectedValue2);
+            cache.Put(key3, expectedValue3);
 
             //Actual
-            var actualValue = algorithm.GetValue(key);
+            var actualValue1 = algorithm.GetValue(key1);
+            var actualValue2 = algorithm.GetValue(key2);
+            var actualValue3 = algorithm.GetValue(key3);
 
             //Assert
-            Assert.AreEqual(expectedValue, actualValue);
+            Assert.AreEqual(expectedValue1, actualValue1);
+            Assert.AreEqual(expectedValue2, actualValue2);
+            Assert.AreEqual(expectedValue3, actualValue3);
         }
 
         [Test]
@@ -119,7 +129,7 @@ namespace NWaySetAssociateCacheTests
         }
 
         [Test]
-        public void TryRemoveUnexistedEntryShouldBeError()
+        public void TryRemoveNullEntryShouldBeError()
         {
             //Arrange
             int cacheSize = 45;
@@ -154,5 +164,20 @@ namespace NWaySetAssociateCacheTests
             Assert.DoesNotThrow(() => algorithm.Update(key));
         }
 
+        [Test]
+        public void TryGetFromNullCacheShouldBeErrorTest()
+        {
+            //Arrange
+            int cacheSize = 10;
+            int nSet = 5;
+            string key = "134";
+
+            var algorithm = new LRUAlgorithm<string>(cacheSize);
+            var cache = new Cache<string>(cacheSize, nSet, algorithm);
+
+            //Actual
+            //Assert
+            Assert.Throws<CacheException>(() => algorithm.GetValue(key));
+        }
     }
 }
