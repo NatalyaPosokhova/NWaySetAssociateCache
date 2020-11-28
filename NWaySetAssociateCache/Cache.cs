@@ -14,7 +14,7 @@ namespace NWaySetAssociateCache
         /// <summary>
         /// Determines an algorithm of cache updating and removing unused key/value pairs.
         /// </summary>
-        private IAlgorithm<T> _algorithm;
+        private Algorithm<T> _algorithm;
 
         /// <summary>
         /// Determines all cache size.
@@ -46,7 +46,7 @@ namespace NWaySetAssociateCache
         /// <param name="cacheSize">Defines cache size</param>
         /// <param name="nSet">Defines ways' quantity</param>
         /// <param name="algorithm">Defines the cleaning/updating cache algorithm</param>
-        public Cache(int cacheSize, int nSet, IAlgorithm<T> algorithm)
+        public Cache(int cacheSize, int nSet, Algorithm<T> algorithm)
         {
             _algorithm = algorithm;
             _cacheSize = cacheSize;

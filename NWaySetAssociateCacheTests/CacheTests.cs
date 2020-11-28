@@ -1,7 +1,6 @@
 using NUnit.Framework;
 using NWaySetAssociateCache;
 using NSubstitute;
-using System.Collections.Generic;
 
 namespace NWaySetAssociateCacheTests
 {
@@ -16,7 +15,7 @@ namespace NWaySetAssociateCacheTests
         public void TryPutGetDataToCacheShouldBeSuccessTest()
         {
             //Arrange
-            var algorithm = Substitute.For<IAlgorithm<string>>();
+            var algorithm = Substitute.For<Algorithm<string>>();
             int cacheSize = 16;
             int nSet = 4;
             string key = "1";
@@ -38,7 +37,7 @@ namespace NWaySetAssociateCacheTests
         public void TrySetTooMuchNWaysShouldBeErrorTest()
         {
             //Arrange
-            var algorithm = Substitute.For<IAlgorithm<int>>();
+            var algorithm = Substitute.For<Algorithm<int>>();
             int cacheSize = 4;
             int nSet = 20;
 
@@ -51,7 +50,7 @@ namespace NWaySetAssociateCacheTests
         public void TryGetNotExistedValueShouldBeErrorTest()
         {
             //Arrange
-            var algorithm = Substitute.For<IAlgorithm<int>>();
+            var algorithm = Substitute.For<Algorithm<int>>();
             int cacheSize = 20;
             int nSet = 5;
             int key = 123;
@@ -67,7 +66,7 @@ namespace NWaySetAssociateCacheTests
         public void TryPutExistedKeyValuePairShouldBeErrorTest()
         {
             //Arrange
-            var algorithm = Substitute.For<IAlgorithm<int>>();
+            var algorithm = Substitute.For<Algorithm<int>>();
             int cacheSize = 25;
             int nSet = 8;
             int key = 123;

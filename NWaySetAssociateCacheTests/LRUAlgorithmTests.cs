@@ -1,7 +1,5 @@
 ﻿using NUnit.Framework;
 using NWaySetAssociateCache;
-using NSubstitute;
-using NSubstitute.ExceptionExtensions;
 using System;
 
 namespace NWaySetAssociateCacheTests
@@ -12,10 +10,9 @@ namespace NWaySetAssociateCacheTests
         public void AddEntryToHashMapShouldBeSuccess()
         {
             //Arrange
-            int cacheSize = 16;
             int key = 55;
             int expectedValue = 4;
-            var algorithm = new LRUAlgorithm<int>(cacheSize);
+            var algorithm = new LRUAlgorithm<int>();
 
             algorithm.Add(key, expectedValue);
 
@@ -38,7 +35,7 @@ namespace NWaySetAssociateCacheTests
             string key3 = "key3";
             string expectedValue3 = "value3";
 
-            var algorithm = new LRUAlgorithm<string>(cacheSize);
+            var algorithm = new LRUAlgorithm<string>();
 
             var cache = new Cache<string>(cacheSize, nSet, algorithm);
             cache.Put(key1, expectedValue1);
@@ -64,7 +61,7 @@ namespace NWaySetAssociateCacheTests
             int nSet = 5;
             string key = "134";
 
-            var algorithm = new LRUAlgorithm<string>(cacheSize);
+            var algorithm = new LRUAlgorithm<string>();
             var cache = new Cache<string>(cacheSize, nSet, algorithm);
 
             //Actual
@@ -83,7 +80,7 @@ namespace NWaySetAssociateCacheTests
             string key2 = "2";
             string value2 = "2";
 
-            var algorithm = new LRUAlgorithm<string>(cacheSize);
+            var algorithm = new LRUAlgorithm<string>();
 
             var cache = new Cache<string>(cacheSize, nSet, algorithm);
 
@@ -105,7 +102,7 @@ namespace NWaySetAssociateCacheTests
             double key = 6.4;
             double value = 2.2;
 
-            var algorithm = new LRUAlgorithm<double>(cacheSize);
+            var algorithm = new LRUAlgorithm<double>();
 
             var cache = new Cache<double>(cacheSize, nSet, algorithm);
             cache.Put(key, value);
@@ -122,13 +119,12 @@ namespace NWaySetAssociateCacheTests
         public void UpdateEntryViaAlgorithmShouldBeFirst()
         {
             //Arrange
-            int cacheSize = 200;
             int key1 = 1;
             int value1 = 1;
             int key2 = 2;
             int value2 = 2;
 
-            var algorithm = new LRUAlgorithm<int>(cacheSize);
+            var algorithm = new LRUAlgorithm<int>();
             algorithm.Add(key1, value1);
             algorithm.Add(key2, value2);
             algorithm.Update(key1);
@@ -147,7 +143,7 @@ namespace NWaySetAssociateCacheTests
             string key = "134";
             string value = "2221";
 
-            var algorithm = new LRUAlgorithm<string>(cacheSize);
+            var algorithm = new LRUAlgorithm<string>();
             var cache = new Cache<string>(cacheSize, nSet, algorithm);
             cache.Put(key, value);
 
