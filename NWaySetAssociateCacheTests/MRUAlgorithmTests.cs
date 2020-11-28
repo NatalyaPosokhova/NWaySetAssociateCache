@@ -140,7 +140,7 @@ namespace NWaySetAssociateCacheTests
             string key = "134";
             string value = "2221";
 
-            var algorithm = new LRUAlgorithm<string>();
+            var algorithm = new MRUAlgorithm<string>();
             var cache = new Cache<string>(cacheSize, nSet, algorithm);
             cache.Put(key, value);
 
