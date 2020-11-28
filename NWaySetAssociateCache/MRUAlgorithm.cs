@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace NWaySetAssociateCache
@@ -15,7 +16,7 @@ namespace NWaySetAssociateCache
         /// <param name="value"></param>
         public override void Add(T key, T value)
         {
-            throw new NotImplementedException();
+            CacheList.AddLast(new KeyValuePair<T, T>(key, value));
         }
         /// <summary>
         /// Removes key/value pair from MRU cache list.
@@ -41,7 +42,7 @@ namespace NWaySetAssociateCache
         /// <returns>Value</returns>
         public T GetValue(T key)
         {
-            throw new NotImplementedException();
+            return CacheList.Single(node => EqualityComparer<T>.Default.Equals(node.Key, key)).Value;
         }
 
         public bool? IsKeyValuePairLast(T key)
