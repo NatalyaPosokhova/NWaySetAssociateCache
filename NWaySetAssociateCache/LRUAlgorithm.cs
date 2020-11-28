@@ -8,7 +8,6 @@ namespace NWaySetAssociateCache
     public class LRUAlgorithm<T> : IAlgorithm<T>
     {
         private LinkedList<KeyValuePair<T, T>> lruListCache;
-
         private int _capacity;
         /// <summary>
         /// Constructor for LRU Algorithm of clearing cache.

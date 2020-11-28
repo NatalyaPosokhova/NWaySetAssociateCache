@@ -69,7 +69,7 @@ namespace NWaySetAssociateCacheTests
 
             //Actual
             //Assert
-            Assert.Throws<CacheException>(() => algorithm.GetValue(key));
+            Assert.Throws<InvalidOperationException>(() => algorithm.GetValue(key));
         }
 
         [Test]
