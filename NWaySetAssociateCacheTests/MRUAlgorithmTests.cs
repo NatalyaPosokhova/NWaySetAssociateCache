@@ -131,5 +131,22 @@ namespace NWaySetAssociateCacheTests
             Assert.IsTrue(algorithm.IsKeyValuePairLast(key1));
         }
 
+        [Test]
+        public void TryUpdateAlreadyLastEntryTest()
+        {
+            //Arrange
+            int cacheSize = 10;
+            int nSet = 5;
+            string key = "134";
+            string value = "2221";
+
+            var algorithm = new LRUAlgorithm<string>();
+            var cache = new Cache<string>(cacheSize, nSet, algorithm);
+            cache.Put(key, value);
+
+            //Actual
+            //Assert
+            Assert.DoesNotThrow(() => algorithm.Update(key));
+        }
     }
 }
