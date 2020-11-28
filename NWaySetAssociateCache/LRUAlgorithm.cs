@@ -31,7 +31,7 @@ namespace NWaySetAssociateCache
         /// Removes key/value pair from LRU cache list.
         /// </summary>
         /// <param name="key"></param>
-        public void Remove(T key)
+        public void Remove()
         {
             lruListCache.RemoveLast();
         }

@@ -110,30 +110,12 @@ namespace NWaySetAssociateCacheTests
             var cache = new Cache<double>(cacheSize, nSet, algorithm);
             cache.Put(key, value);
 
-            algorithm.Remove(key);
+            algorithm.Remove();
 
             //Actual
             //Assert
             Assert.Throws<InvalidOperationException>(() => algorithm.GetValue(key));
             Assert.Throws<InvalidOperationException>(() => cache.Get(key));
-        }
-
-         [Test]
-        public void TryRemoveNullEntryShouldBeError()
-        {
-            //Arrange
-            int cacheSize = 45;
-            int nSet = 5;
-            string key = "1";
-            string value = "1";
-            string keyToRemove = "2";
-
-            var algorithm = new LRUAlgorithm<string>(cacheSize);
-            algorithm.Add(key, value);
-
-            //Actual
-            //Assert
-            Assert.Throws<CacheException>(() => algorithm.Remove(keyToRemove));
         }
 
         [Test]

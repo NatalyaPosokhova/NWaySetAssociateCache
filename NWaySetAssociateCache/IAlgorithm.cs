@@ -9,7 +9,7 @@ namespace NWaySetAssociateCache
         public void Add(T key, T value);
         public void Update(T key);
 
-        public void Remove(T key);
+        public void Remove();
         public T GetValue(T key);
     }
 }
