@@ -19,7 +19,7 @@ namespace NWaySetAssociateCache
         /// <param name="value"></param>
         public override void Add(T key, T value)
         {
-            LruListCache.AddFirst(new KeyValuePair<T, T>(key, value));
+            CacheList.AddFirst(new KeyValuePair<T, T>(key, value));
         }
         /// <summary>
         /// Removes key/value pair from LRU cache list.
@@ -27,7 +27,7 @@ namespace NWaySetAssociateCache
         /// <param name="key"></param>
         public override void Remove()
         {
-            LruListCache.RemoveLast();
+            CacheList.RemoveLast();
         }
         /// <summary>
         /// Updates the key/value pair position on first in LRU cache list.
@@ -35,11 +35,11 @@ namespace NWaySetAssociateCache
         /// <param name="key"></param>
         public override void Update(T key)
         {
-            var node = LruListCache.Single(node => EqualityComparer<T>.Default.Equals(node.Key, key));
+            var node = CacheList.Single(node => EqualityComparer<T>.Default.Equals(node.Key, key));
             if (!IsKeyValuePairFirst(key))
             {
-                LruListCache.Remove(node);
-                LruListCache.AddFirst(node);
+                CacheList.Remove(node);
+                CacheList.AddFirst(node);
             }
         }
         /// <summary>
@@ -49,7 +49,7 @@ namespace NWaySetAssociateCache
         /// <returns>Value</returns>
         public T GetValue(T key)
         {
-            return LruListCache.Single(node => EqualityComparer<T>.Default.Equals(node.Key, key)).Value;
+            return CacheList.Single(node => EqualityComparer<T>.Default.Equals(node.Key, key)).Value;
         }
         /// <summary>
         /// Determines if key/value pair position in LRU cache list is first.
@@ -58,7 +58,7 @@ namespace NWaySetAssociateCache
         /// <returns></returns>
         public bool IsKeyValuePairFirst(T key)
         {
-            return LruListCache.First().Key.Equals(key);
+            return CacheList.First().Key.Equals(key);
         }
     }
 

@@ -6,13 +6,13 @@ namespace NWaySetAssociateCache
 {
     public abstract class Algorithm<T>
     {
-        protected LinkedList<KeyValuePair<T, T>> LruListCache { get; private set; }
+        protected LinkedList<KeyValuePair<T, T>> CacheList { get; private set; }
         /// <summary>
         /// Constructor for Algorithm of clearing cache.
         /// </summary>
         public Algorithm()
         {
-            LruListCache = new LinkedList<KeyValuePair<T, T>>();
+            CacheList = new LinkedList<KeyValuePair<T, T>>();
         }
 
         /// <summary>
