@@ -55,11 +55,11 @@ namespace NWaySetAssociateCache
             return lruListCache.Single(node => EqualityComparer<T>.Default.Equals(node.Key, key)).Value;
         }
         /// <summary>
-        /// Determines key/value pair position in LRU cache list, created only for unit tests.
+        /// Determines if key/value pair position in LRU cache list is first, created only for unit tests.
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public int GetKeyValueHashMapOrder(T key)
+        public bool IsKeyValuePairFirst(T key)
         {
             throw new NotImplementedException();
         }

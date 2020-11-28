@@ -82,7 +82,6 @@ namespace NWaySetAssociateCacheTests
             string value1 = "1";
             string key2 = "2";
             string value2 = "2";
-            int expectedOrder = 0;
 
             var algorithm = new LRUAlgorithm<string>(cacheSize);
 
@@ -93,10 +92,8 @@ namespace NWaySetAssociateCacheTests
             cache.Get(key1);
 
             //Actual
-            var actualOrder = algorithm.GetKeyValueHashMapOrder(key1);
-
             //Assert
-            Assert.AreEqual(expectedOrder, actualOrder);
+            Assert.IsTrue(algorithm.IsKeyValuePairFirst(key1));
         }
 
         [Test]
@@ -148,7 +145,6 @@ namespace NWaySetAssociateCacheTests
             int value1 = 1;
             int key2 = 2;
             int value2 = 2;
-            int expectedOrder = 0;
 
             var algorithm = new LRUAlgorithm<int>(cacheSize);
             algorithm.Add(key1, value1);
@@ -156,10 +152,8 @@ namespace NWaySetAssociateCacheTests
             algorithm.Update(key1);
 
             //Actual
-            var actualOrder = algorithm.GetKeyValueHashMapOrder(key1);
-
             //Assert
-            Assert.AreEqual(expectedOrder, actualOrder);
+            Assert.IsTrue(algorithm.IsKeyValuePairFirst(key1));
         }
 
         [Test]
