@@ -33,7 +33,7 @@ namespace NWaySetAssociateCache
         /// <param name="key"></param>
         public void Remove(T key)
         {
-            throw new NotImplementedException();
+            lruListCache.RemoveLast();
         }
         /// <summary>
         /// Updates the key/value pair position on first in LRU cache list.
