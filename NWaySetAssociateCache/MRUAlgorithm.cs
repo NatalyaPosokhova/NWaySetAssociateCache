@@ -44,7 +44,7 @@ namespace NWaySetAssociateCache
             throw new NotImplementedException();
         }
 
-        public bool? IsKeyValuePairLast(string key1)
+        public bool? IsKeyValuePairLast(T key)
         {
             throw new NotImplementedException();
         }
