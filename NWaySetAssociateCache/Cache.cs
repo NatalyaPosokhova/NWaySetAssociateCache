@@ -4,17 +4,17 @@ using System.Linq;
 
 namespace NWaySetAssociateCache
 {
-    public class Cache<T>
+    public class Cache<KeyType, ValueType>
     {
         /// <summary>
         /// Store datablocks of cache.
         /// </summary>
-        public Dictionary<T, T>[] cacheBlocks;
+        public Dictionary<KeyType, ValueType>[] cacheBlocks;
 
         /// <summary>
         /// Determines an algorithm of cache updating and removing unused key/value pairs.
         /// </summary>
-        private Algorithm<T> _algorithm;
+        private Algorithm<KeyType, ValueType> _algorithm;
 
         /// <summary>
         /// Determines all cache size.
@@ -46,19 +46,19 @@ namespace NWaySetAssociateCache
         /// <param name="cacheSize">Defines cache size</param>
         /// <param name="nSet">Defines ways' quantity</param>
         /// <param name="algorithm">Defines the cleaning/updating cache algorithm</param>
-        public Cache(int cacheSize, int nSet, Algorithm<T> algorithm)
+        public Cache(int cacheSize, int nSet, Algorithm<KeyType, ValueType> algorithm)
         {
             _algorithm = algorithm;
             _cacheSize = cacheSize;
             NSet = nSet;
-            cacheBlocks = new Dictionary<T, T>[NSet];
+            cacheBlocks = new Dictionary<KeyType, ValueType>[NSet];
         }
 
         /// <summary>
         /// Gets Block Index from 0 to N-1(ways number)
         /// </summary>
         /// <returns>Block Index</returns>
-        public int GetDataBlockIndex(T key)
+        public int GetDataBlockIndex(KeyType key)
         {
             return Math.Abs(key.GetHashCode() % NSet);
         }
@@ -68,13 +68,13 @@ namespace NWaySetAssociateCache
         /// </summary>
         /// <param name="key">Key</param>
         /// <param name="value">Value</param>
-        public void Put(T key, T value)
+        public void Put(KeyType key, ValueType value)
         {
             var index = GetDataBlockIndex(key);
 
             if (cacheBlocks[index] == null)
             {
-                cacheBlocks[index] = new Dictionary<T, T> { };
+                cacheBlocks[index] = new Dictionary<KeyType, ValueType> { };
             }
 
             try
@@ -95,10 +95,10 @@ namespace NWaySetAssociateCache
         /// <typeparam name="T">Parametrs type</typeparam>
         /// <param name="key">Key</param>
         /// <returns>Value</returns>
-        public T Get(T key)
+        public ValueType Get(KeyType key)
         {
             int index = GetDataBlockIndex(key);
-            T value;
+            ValueType value;
 
             if(cacheBlocks[index] == null || !cacheBlocks[index].TryGetValue(key, out value))
             {

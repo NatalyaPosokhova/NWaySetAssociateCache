@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NWaySetAssociateCache
 {
-    public class MRUAlgorithm<T> : Algorithm<T>
+    public class MRUAlgorithm<KeyType, ValueType> : Algorithm<KeyType, ValueType>
     {
         public MRUAlgorithm() : base() { }
 
@@ -14,9 +14,9 @@ namespace NWaySetAssociateCache
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public override void Add(T key, T value)
+        public override void Add(KeyType key, ValueType value)
         {
-            CacheList.AddLast(new KeyValuePair<T, T>(key, value));
+            CacheList.AddLast(new KeyValuePair<KeyType, ValueType>(key, value));
         }
         /// <summary>
         /// Removes key/value pair from MRU cache list.
@@ -30,9 +30,9 @@ namespace NWaySetAssociateCache
         /// Updates the key/value pair position on first in MRU cache list.
         /// </summary>
         /// <param name="key"></param>
-        public override void Update(T key)
+        public override void Update(KeyType key)
         {
-            var node = CacheList.Single(node => EqualityComparer<T>.Default.Equals(node.Key, key));
+            var node = CacheList.Single(node => EqualityComparer<KeyType>.Default.Equals(node.Key, key));
             if (!IsKeyValuePairLast(key))
             {
                 CacheList.Remove(node);
@@ -45,12 +45,12 @@ namespace NWaySetAssociateCache
         /// </summary>
         /// <param name="key"></param>
         /// <returns>Value</returns>
-        public T GetValue(T key)
+        public ValueType GetValue(KeyType key)
         {
-            return CacheList.Single(node => EqualityComparer<T>.Default.Equals(node.Key, key)).Value;
+            return CacheList.Single(node => EqualityComparer<KeyType>.Default.Equals(node.Key, key)).Value;
         }
 
-        public bool IsKeyValuePairLast(T key)
+        public bool IsKeyValuePairLast(KeyType key)
         {
             return CacheList.Last().Key.Equals(key);
         }

@@ -15,13 +15,13 @@ namespace NWaySetAssociateCacheTests
         public void TryPutGetDataToCacheShouldBeSuccessTest()
         {
             //Arrange
-            var algorithm = Substitute.For<Algorithm<string>>();
+            var algorithm = Substitute.For<Algorithm<int, string>>();
             int cacheSize = 16;
             int nSet = 4;
-            string key = "1";
+            int key = 1;
             string expectedValue = "A";
 
-            var cache = new Cache<string>(cacheSize, nSet, algorithm);
+            var cache = new Cache<int, string>(cacheSize, nSet, algorithm);
             cache.Put(key, expectedValue);
 
             //Actual
@@ -37,25 +37,25 @@ namespace NWaySetAssociateCacheTests
         public void TrySetTooMuchNWaysShouldBeErrorTest()
         {
             //Arrange
-            var algorithm = Substitute.For<Algorithm<int>>();
+            var algorithm = Substitute.For<Algorithm<int, int>>();
             int cacheSize = 4;
             int nSet = 20;
 
             //Actual
             //Assert
-            Assert.Throws<CacheException>(() => new Cache<int>(cacheSize, nSet, algorithm));
+            Assert.Throws<CacheException>(() => new Cache<int, int>(cacheSize, nSet, algorithm));
         }
 
         [Test]
         public void TryGetNotExistedValueShouldBeErrorTest()
         {
             //Arrange
-            var algorithm = Substitute.For<Algorithm<int>>();
+            var algorithm = Substitute.For<Algorithm<int, int>>();
             int cacheSize = 20;
             int nSet = 5;
             int key = 123;
 
-            var cache = new Cache<int>(cacheSize, nSet, algorithm);
+            var cache = new Cache<int, int>(cacheSize, nSet, algorithm);
 
             //Actual
             //Assert
@@ -66,13 +66,13 @@ namespace NWaySetAssociateCacheTests
         public void TryPutExistedKeyValuePairShouldBeErrorTest()
         {
             //Arrange
-            var algorithm = Substitute.For<Algorithm<int>>();
+            var algorithm = Substitute.For<Algorithm<double, int>>();
             int cacheSize = 25;
             int nSet = 8;
-            int key = 123;
+            double key = 123.5;
             int value = 345;
 
-            var cache = new Cache<int>(cacheSize, nSet, algorithm);
+            var cache = new Cache<double, int>(cacheSize, nSet, algorithm);
             cache.Put(key, value);
 
             //Actual

@@ -12,7 +12,7 @@ namespace NWaySetAssociateCacheTests
             //Arrange
             int key = 178;
             int expectedValue = 678;
-            var algorithm = new MRUAlgorithm<int>();
+            var algorithm = new MRUAlgorithm<int, int>();
 
             algorithm.Add(key, expectedValue);
 
@@ -35,9 +35,9 @@ namespace NWaySetAssociateCacheTests
             string key3 = "key3";
             string expectedValue3 = "value3";
 
-            var algorithm = new MRUAlgorithm<string>();
+            var algorithm = new MRUAlgorithm<string, string>();
 
-            var cache = new Cache<string>(cacheSize, nSet, algorithm);
+            var cache = new Cache<string, string>(cacheSize, nSet, algorithm);
             cache.Put(key1, expectedValue1);
             cache.Put(key2, expectedValue2);
             cache.Put(key3, expectedValue3);
@@ -59,7 +59,7 @@ namespace NWaySetAssociateCacheTests
             //Arrange
             string key = "134";
 
-            var algorithm = new MRUAlgorithm<string>();
+            var algorithm = new MRUAlgorithm<string, string>();
 
             //Actual
             //Assert
@@ -77,9 +77,9 @@ namespace NWaySetAssociateCacheTests
             string key2 = "2";
             string value2 = "2";
 
-            var algorithm = new MRUAlgorithm<string>();
+            var algorithm = new MRUAlgorithm<string, string>();
 
-            var cache = new Cache<string>(cacheSize, nSet, algorithm);
+            var cache = new Cache<string, string>(cacheSize, nSet, algorithm);
 
             cache.Put(key1, value1);
             cache.Put(key2, value2);
@@ -99,9 +99,9 @@ namespace NWaySetAssociateCacheTests
             double key = 6.4;
             double value = 2.2;
 
-            var algorithm = new MRUAlgorithm<double>();
+            var algorithm = new MRUAlgorithm<double, double>();
 
-            var cache = new Cache<double>(cacheSize, nSet, algorithm);
+            var cache = new Cache<double, double>(cacheSize, nSet, algorithm);
             cache.Put(key, value);
 
             algorithm.Remove();
@@ -121,7 +121,7 @@ namespace NWaySetAssociateCacheTests
             int key2 = 2;
             int value2 = 2;
 
-            var algorithm = new MRUAlgorithm<int>();
+            var algorithm = new MRUAlgorithm<int, int>();
             algorithm.Add(key1, value1);
             algorithm.Add(key2, value2);
             algorithm.Update(key1);
@@ -140,8 +140,8 @@ namespace NWaySetAssociateCacheTests
             string key = "134";
             string value = "2221";
 
-            var algorithm = new MRUAlgorithm<string>();
-            var cache = new Cache<string>(cacheSize, nSet, algorithm);
+            var algorithm = new MRUAlgorithm<string, string>();
+            var cache = new Cache<string, string>(cacheSize, nSet, algorithm);
             cache.Put(key, value);
 
             //Actual

@@ -4,15 +4,15 @@ using System.Text;
 
 namespace NWaySetAssociateCache
 {
-    public abstract class Algorithm<T>
+    public abstract class Algorithm<KeyType, ValueType>
     {
-        protected LinkedList<KeyValuePair<T, T>> CacheList { get; private set; }
+        protected LinkedList<KeyValuePair<KeyType, ValueType>> CacheList { get; private set; }
         /// <summary>
         /// Constructor for Algorithm of clearing cache.
         /// </summary>
         public Algorithm()
         {
-            CacheList = new LinkedList<KeyValuePair<T, T>>();
+            CacheList = new LinkedList<KeyValuePair<KeyType, ValueType>>();
         }
 
         /// <summary>
@@ -20,13 +20,13 @@ namespace NWaySetAssociateCache
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public abstract void Add(T key, T value);
+        public abstract void Add(KeyType key, ValueType value);
 
         /// <summary>
         /// Updates the key/value pair position in cache list.
         /// </summary>
         /// <param name="key"></param>
-        public abstract void Update(T key);
+        public abstract void Update(KeyType key);
 
         /// <summary>
         /// Removes key/value pair from cache list.
