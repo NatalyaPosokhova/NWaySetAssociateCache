@@ -57,12 +57,9 @@ namespace NWaySetAssociateCacheTests
         public void TryGetFromNullCacheShouldBeErrorTest()
         {
             //Arrange
-            int cacheSize = 10;
-            int nSet = 5;
             string key = "134";
 
             var algorithm = new LRUAlgorithm<string>();
-            var cache = new Cache<string>(cacheSize, nSet, algorithm);
 
             //Actual
             //Assert

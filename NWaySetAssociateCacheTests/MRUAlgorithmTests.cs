@@ -52,5 +52,18 @@ namespace NWaySetAssociateCacheTests
             Assert.AreEqual(expectedValue2, actualValue2);
             Assert.AreEqual(expectedValue3, actualValue3);
         }
+
+        [Test]
+        public void TryGetFromNullCacheShouldBeErrorTest()
+        {
+            //Arrange
+            string key = "134";
+
+            var algorithm = new MRUAlgorithm<string>();
+
+            //Actual
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => algorithm.GetValue(key));
+        }
     }
 }
