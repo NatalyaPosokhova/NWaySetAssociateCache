@@ -41,13 +41,15 @@ namespace NWaySetAssociateCache
         /// <param name="key"></param>
         public void Update(T key)
         {
-            throw new NotImplementedException();
+            var node = lruListCache.Single(node => EqualityComparer<T>.Default.Equals(node.Key, key));
+            lruListCache.Remove(node);
+            lruListCache.AddFirst(node);
         }
         /// <summary>
         /// Gets value from LRU cache list, created only for unit tests.
         /// </summary>
         /// <param name="key"></param>
-        /// <returns></returns>
+        /// <returns>Value</returns>
         public T GetValue(T key)
         {
             return lruListCache.Single(node => EqualityComparer<T>.Default.Equals(node.Key, key)).Value;
