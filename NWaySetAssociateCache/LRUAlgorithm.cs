@@ -42,8 +42,11 @@ namespace NWaySetAssociateCache
         public void Update(T key)
         {
             var node = lruListCache.Single(node => EqualityComparer<T>.Default.Equals(node.Key, key));
-            lruListCache.Remove(node);
-            lruListCache.AddFirst(node);
+            if (!IsKeyValuePairFirst(key))
+            {
+                lruListCache.Remove(node);
+                lruListCache.AddFirst(node);
+            }
         }
         /// <summary>
         /// Gets value from LRU cache list, created only for unit tests.
@@ -55,13 +58,13 @@ namespace NWaySetAssociateCache
             return lruListCache.Single(node => EqualityComparer<T>.Default.Equals(node.Key, key)).Value;
         }
         /// <summary>
-        /// Determines if key/value pair position in LRU cache list is first, created only for unit tests.
+        /// Determines if key/value pair position in LRU cache list is first.
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
         public bool IsKeyValuePairFirst(T key)
         {
-            throw new NotImplementedException();
+            return lruListCache.First().Key.Equals(key);
         }
     }
 
