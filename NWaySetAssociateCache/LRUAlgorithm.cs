@@ -1,37 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace NWaySetAssociateCache
 {
     public class LRUAlgorithm<T> : IAlgorithm<T>
     {
-        private Dictionary<int, Entry> hashMap;
+        private LinkedList<KeyValuePair<T, T>> lruListCache;
+
         private int _capacity;
-        private readonly Cache<T> _cache;
+        /// <summary>
+        /// Constructor for LRU Algorithm of clearing cache.
+        /// </summary>
+        /// <param name="cacheSize"></param>
         public LRUAlgorithm(int cacheSize)
         {
             _capacity = cacheSize;
+            lruListCache = new LinkedList<KeyValuePair<T, T>>();
         }
+        /// <summary>
+        /// Adds key/value pair to LRU cache list.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         public void Add(T key, T value)
         {
-            throw new NotImplementedException();
+            lruListCache.AddFirst(new KeyValuePair<T, T>(key, value));
         }
-
+        /// <summary>
+        /// Removes key/value pair from LRU cache list.
+        /// </summary>
+        /// <param name="key"></param>
         public void Remove(T key)
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// Updates the key/value pair position on first in LRU cache list.
+        /// </summary>
+        /// <param name="key"></param>
         public void Update(T key)
         {
             throw new NotImplementedException();
         }
+        /// <summary>
+        /// Gets value from LRU cache list, created only for unit tests.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public T GetValue(T key)
         {
-            throw new NotImplementedException();
+            return lruListCache.Single(node => EqualityComparer<T>.Default.Equals(node.Key, key)).Value;
         }
-
+        /// <summary>
+        /// Determines key/value pair position in LRU cache list, created only for unit tests.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public int GetKeyValueHashMapOrder(T key)
         {
             throw new NotImplementedException();
