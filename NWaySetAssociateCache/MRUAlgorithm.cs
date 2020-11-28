@@ -24,7 +24,7 @@ namespace NWaySetAssociateCache
         /// <param name="key"></param>
         public override void Remove()
         {
-            throw new NotImplementedException();
+            CacheList.RemoveLast();
         }
         /// <summary>
         /// Updates the key/value pair position on first in MRU cache list.
@@ -32,7 +32,12 @@ namespace NWaySetAssociateCache
         /// <param name="key"></param>
         public override void Update(T key)
         {
-            throw new NotImplementedException();
+            var node = CacheList.Single(node => EqualityComparer<T>.Default.Equals(node.Key, key));
+            if (!IsKeyValuePairLast(key))
+            {
+                CacheList.Remove(node);
+                CacheList.AddLast(node);
+            }
         }
 
         /// <summary>
@@ -45,9 +50,9 @@ namespace NWaySetAssociateCache
             return CacheList.Single(node => EqualityComparer<T>.Default.Equals(node.Key, key)).Value;
         }
 
-        public bool? IsKeyValuePairLast(T key)
+        public bool IsKeyValuePairLast(T key)
         {
-            throw new NotImplementedException();
+            return CacheList.Last().Key.Equals(key);
         }
     }
 }
