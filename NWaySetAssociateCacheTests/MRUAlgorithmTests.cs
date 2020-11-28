@@ -90,5 +90,27 @@ namespace NWaySetAssociateCacheTests
             Assert.IsTrue(algorithm.IsKeyValuePairLast(key1));
         }
 
+        [Test]
+        public void RemoveEntryViaAlgorithmShouldBeSuccess()
+        {
+            //Arrange
+            int cacheSize = 255;
+            int nSet = 1;
+            double key = 6.4;
+            double value = 2.2;
+
+            var algorithm = new MRUAlgorithm<double>();
+
+            var cache = new Cache<double>(cacheSize, nSet, algorithm);
+            cache.Put(key, value);
+
+            algorithm.Remove();
+
+            //Actual
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => algorithm.GetValue(key));
+            Assert.Throws<InvalidOperationException>(() => cache.Get(key));
+        }
+
     }
 }
