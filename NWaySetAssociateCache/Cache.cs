@@ -9,7 +9,7 @@ namespace NWaySetAssociateCache
         /// <summary>
         /// Store datablocks of cache.
         /// </summary>
-        public Dictionary<KeyType, ValueType>[] cacheBlocks;
+        private Dictionary<KeyType, ValueType>[] _cacheBlocks;
 
         /// <summary>
         /// Determines an algorithm of cache updating and removing unused key/value pairs.
@@ -28,7 +28,7 @@ namespace NWaySetAssociateCache
 
         private const int maxSetNumber = 8;
 
-        private int NSet
+        public int NSet
         {
             get
             {
@@ -50,8 +50,8 @@ namespace NWaySetAssociateCache
         {
             _algorithm = algorithm;
             _cacheSize = cacheSize;
-            NSet = nSet;
-            cacheBlocks = new Dictionary<KeyType, ValueType>[NSet];
+            _nSet = nSet;
+            _cacheBlocks = new Dictionary<KeyType, ValueType>[NSet];
         }
 
         /// <summary>
@@ -72,18 +72,18 @@ namespace NWaySetAssociateCache
         {
             var index = GetDataBlockIndex(key);
 
-            if (cacheBlocks[index] == null)
+            if (_cacheBlocks[index] == null)
             {
-                cacheBlocks[index] = new Dictionary<KeyType, ValueType> { };
+                _cacheBlocks[index] = new Dictionary<KeyType, ValueType> { };
             }
 
             try
             {
-                if (cacheBlocks[index].Count == _cacheSize)
+                if (_cacheBlocks[index].Count == _cacheSize)
                 {
                     _algorithm.Remove();
                 }
-                cacheBlocks[index].Add(key, value);
+                _cacheBlocks[index].Add(key, value);
             }
             catch
             {
@@ -104,7 +104,7 @@ namespace NWaySetAssociateCache
             int index = GetDataBlockIndex(key);
             ValueType value;
 
-            if(cacheBlocks[index] == null || !cacheBlocks[index].TryGetValue(key, out value))
+            if(_cacheBlocks[index] == null || !_cacheBlocks[index].TryGetValue(key, out value))
             {
                 throw new CacheException("Cache error: Cannot get value by key.");
             }
