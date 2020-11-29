@@ -6,9 +6,6 @@ namespace NWaySetAssociateCache
 {
     public class CacheException : Exception
     {
-        public CacheException(string message, Exception ex = null): base(message, ex)
-        {
-
-        }
+        public CacheException(string message, Exception ex = null) : base(message, ex) { }
     }
 }

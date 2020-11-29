@@ -17,7 +17,7 @@ namespace NWaySetAssociateCache
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public override void Add(KeyType key, ValueType value)
+        public override sealed void Add(KeyType key, ValueType value)
         {
             CacheList.AddFirst(new KeyValuePair<KeyType, ValueType>(key, value));
         }
@@ -25,7 +25,7 @@ namespace NWaySetAssociateCache
         /// Removes key/value pair from LRU cache list.
         /// </summary>
         /// <param name="key"></param>
-        public override void Remove()
+        public override sealed void Remove()
         {
             CacheList.RemoveLast();
         }
@@ -33,7 +33,7 @@ namespace NWaySetAssociateCache
         /// Updates the key/value pair position on first in LRU cache list.
         /// </summary>
         /// <param name="key"></param>
-        public override void Update(KeyType key)
+        public override sealed void Update(KeyType key)
         {
             var node = CacheList.Single(node => EqualityComparer<KeyType>.Default.Equals(node.Key, key));
             if (!IsKeyValuePairFirst(key))
