@@ -79,7 +79,7 @@ namespace NWaySetAssociateCache
 
             try
             {
-                if (cacheBlocks[index].Count == _cacheSize/NSet)
+                if (cacheBlocks[index].Count == _cacheSize)
                 {
                     _algorithm.Remove();
                 }
