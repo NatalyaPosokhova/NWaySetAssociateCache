@@ -149,5 +149,27 @@ namespace NWaySetAssociateCacheTests
             Assert.DoesNotThrow(() => algorithm.Update(key));
         }
 
+        [Test]
+        public void TryRemovePairFromAlgorithmShouldBerRemovedFromCacheTest()
+        {
+            //Arrange
+            int cacheSize = 10;
+            int nSet = 5;
+            int key = 134;
+            string value = "2221";
+
+            var algorithm = new LRUAlgorithm<int, string>();
+            var cache = new Cache<int, string>(cacheSize, nSet, algorithm);
+
+            cache.Put(key, value);
+            
+            algorithm.Remove();
+
+            //Actual
+            //Assert
+            Assert.Throws<CacheException>(() => cache.Get(key));
+            Assert.Throws<InvalidOperationException>(() => algorithm.GetValue(key));
+        }
+
     }
 }
