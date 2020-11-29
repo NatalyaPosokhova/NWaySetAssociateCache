@@ -7,6 +7,9 @@ namespace NWaySetAssociateCache
 {
     public class MRUAlgorithm<KeyType, ValueType> : Algorithm<KeyType, ValueType>
     {
+        /// <summary>
+        /// Constructor for MRU Algorithm.
+        /// </summary>
         public MRUAlgorithm() : base() { }
 
         /// <summary>
@@ -18,6 +21,7 @@ namespace NWaySetAssociateCache
         {
             CacheList.AddLast(new KeyValuePair<KeyType, ValueType>(key, value));
         }
+
         /// <summary>
         /// Removes key/value pair from MRU cache list.
         /// </summary>
@@ -26,6 +30,7 @@ namespace NWaySetAssociateCache
         {
             CacheList.RemoveLast();
         }
+
         /// <summary>
         /// Updates the key/value pair position on first in MRU cache list.
         /// </summary>

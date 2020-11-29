@@ -20,6 +20,10 @@ namespace NWaySetAssociateCache
         /// Determines all cache size.
         /// </summary>
         private readonly int _cacheSize;
+        public int CacheSize
+        {
+            get => _cacheSize;
+        }
 
         /// <summary>
         /// Number of ways.
