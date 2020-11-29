@@ -21,6 +21,7 @@ namespace NWaySetAssociateCache
         {
             CacheList.AddFirst(new KeyValuePair<KeyType, ValueType>(key, value));
         }
+
         /// <summary>
         /// Removes key/value pair from LRU cache list.
         /// </summary>
@@ -29,6 +30,12 @@ namespace NWaySetAssociateCache
         {
             CacheList.RemoveLast();
         }
+
+        public override sealed KeyType GetKeyToRemove()
+        {
+            return CacheList.Last().Key;
+        }
+
         /// <summary>
         /// Updates the key/value pair position on first in LRU cache list.
         /// </summary>
@@ -42,6 +49,7 @@ namespace NWaySetAssociateCache
                 CacheList.AddFirst(node);
             }
         }
+
         /// <summary>
         /// Gets value from LRU cache list, created only for unit tests.
         /// </summary>

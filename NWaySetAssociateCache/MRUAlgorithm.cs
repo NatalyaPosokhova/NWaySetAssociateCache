@@ -59,5 +59,14 @@ namespace NWaySetAssociateCache
         {
             return CacheList.Last().Key.Equals(key);
         }
+
+        /// <summary>
+        /// Gives Key to Remove
+        /// </summary>
+        /// <returns></returns>
+        public override KeyType GetKeyToRemove()
+        {
+            return CacheList.Last().Key;
+        }
     }
 }

@@ -22,6 +22,15 @@ namespace NWaySetAssociateCache
         }
 
         /// <summary>
+        /// Gives Key to Remove
+        /// </summary>
+        /// <returns></returns>
+        public override KeyType GetKeyToRemove()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
         /// Removes key/value pair from User cache list.
         /// </summary>
         public override void Remove()

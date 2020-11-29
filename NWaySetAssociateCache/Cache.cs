@@ -83,18 +83,22 @@ namespace NWaySetAssociateCache
 
             try
             {
-                if (_cacheBlocks[index].Count == _cacheSize)
+                if (_cacheBlocks[index].Count == CacheSize)
                 {
+                    var keyToRemove = _algorithm.GetKeyToRemove();
+                    _cacheBlocks[index].Remove(keyToRemove);
+
                     _algorithm.Remove();
                 }
+
                 _cacheBlocks[index].Add(key, value);
+
+                _algorithm.Add(key, value);
             }
             catch
             {
                 throw new CacheException("Cannot add key/value pair to cache.");
             }
-
-            _algorithm.Add(key, value);
         }
 
         /// <summary>
@@ -108,7 +112,7 @@ namespace NWaySetAssociateCache
             int index = GetDataBlockIndex(key);
             ValueType value;
 
-            if(_cacheBlocks[index] == null || !_cacheBlocks[index].TryGetValue(key, out value))
+            if (_cacheBlocks[index] == null || !_cacheBlocks[index].TryGetValue(key, out value))
             {
                 throw new CacheException("Cache error: Cannot get value by key.");
             }

@@ -32,5 +32,7 @@ namespace NWaySetAssociateCache
         /// Removes key/value pair from cache list.
         /// </summary>
         public abstract void Remove();
+
+        public abstract KeyType GetKeyToRemove();
     }
 }
