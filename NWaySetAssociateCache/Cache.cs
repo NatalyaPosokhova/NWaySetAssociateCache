@@ -54,7 +54,7 @@ namespace NWaySetAssociateCache
         {
             _algorithm = algorithm;
             _cacheSize = cacheSize;
-            _nSet = nSet;
+            NSet = nSet;
             _cacheBlocks = new Dictionary<KeyType, ValueType>[NSet];
         }
 
@@ -83,7 +83,7 @@ namespace NWaySetAssociateCache
 
             try
             {
-                if (_cacheBlocks[index].Count == CacheSize)
+                if (_cacheBlocks[index].Count == CacheSize/NSet)
                 {
                     var keyToRemove = _algorithm.GetKeyToRemove();
                     _cacheBlocks[index].Remove(keyToRemove);

@@ -31,6 +31,10 @@ namespace NWaySetAssociateCache
             CacheList.RemoveLast();
         }
 
+        /// <summary>
+        /// Gives key to remove node
+        /// </summary>
+        /// <returns></returns>
         public override sealed KeyType GetKeyToRemove()
         {
             return CacheList.Last().Key;
