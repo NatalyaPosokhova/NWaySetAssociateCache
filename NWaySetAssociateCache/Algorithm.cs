@@ -20,19 +20,24 @@ namespace NWaySetAssociateCache
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public abstract void Add(KeyType key, ValueType value);
+        public abstract void Add(KeyType key, ValueType value, Action<KeyType, ValueType> addAlgorithm = null);
 
         /// <summary>
         /// Updates the key/value pair position in cache list.
         /// </summary>
         /// <param name="key"></param>
-        public abstract void Update(KeyType key);
+        public abstract void Update(KeyType key, Action<KeyType, ValueType> updateAlgorithm = null);
 
         /// <summary>
         /// Removes key/value pair from cache list.
         /// </summary>
-        public abstract void Remove();
+        /// <param name="removeAlgorithm"></param>
+        public abstract void Remove(Action<KeyType, ValueType> removeAlgorithm = null);
 
-        public abstract KeyType GetKeyToRemove();
+        /// <summary>
+        /// Gives key to remove.
+        /// </summary>
+        /// <returns></returns>
+        public abstract KeyType GetKeyToRemove(Action<KeyType, ValueType> getKeyToRemoveAlgorithm = null);
     }
 }
