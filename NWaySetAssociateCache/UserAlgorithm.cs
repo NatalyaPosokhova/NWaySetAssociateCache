@@ -20,8 +20,7 @@ namespace NWaySetAssociateCache
             _addAct = addAct;
             _removeAct = removeAct;
         }
-
-        
+  
         /// <summary>
         /// Adds key/value pair to User cache list.
         /// </summary>
@@ -29,14 +28,13 @@ namespace NWaySetAssociateCache
         /// <param name="value"></param>
         public override void Add(KeyType key, ValueType value)
         {
-            var node = CacheList.Single(node => EqualityComparer<KeyType>.Default.Equals(node.Key, key));
             if (_addAct(key, value) == AddAction.addToFirst)
             {
-                CacheList.AddFirst(node);
+                CacheList.AddFirst(new KeyValuePair<KeyType, ValueType>(key, value));
             }
             else
             {
-                CacheList.AddLast(node);
+                CacheList.AddLast(new KeyValuePair<KeyType, ValueType>(key, value));
             }
         }
 
