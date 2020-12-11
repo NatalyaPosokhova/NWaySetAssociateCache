@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace NWaySetAssociateCacheTests
 {
     [TestFixture]
-    public class UserAlgorithmTests
+    public class UserAlgorithmTests1
     {
         private UserAlgorithm<int, string> userAlgorithm;
 
