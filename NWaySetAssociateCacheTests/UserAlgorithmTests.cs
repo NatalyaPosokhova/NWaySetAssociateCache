@@ -40,12 +40,18 @@ namespace NWaySetAssociateCacheTests
         public void TryToUpdateShouldBeFirst()
         {
             //Arrange
-            var key = 567;
-            userAlgorithm.Update(key);
+            var key1 = 111;
+            string value1 = "111";
+            var key2 = 222;
+            string value2 = "222";
+
+            userAlgorithm.Add(key1, value1);
+            userAlgorithm.Add(key2, value2);
+            userAlgorithm.Update(key1);
 
             //Actual
             //Assert
-            Assert.IsTrue(userAlgorithm.IsKeyValuePairFirst(key));
+            Assert.IsTrue(userAlgorithm.IsKeyValuePairFirst(key1));
         }
 
         [Test]

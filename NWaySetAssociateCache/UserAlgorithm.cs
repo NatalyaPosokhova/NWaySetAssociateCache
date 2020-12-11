@@ -76,7 +76,23 @@ namespace NWaySetAssociateCache
         /// <param name="key"></param>
         public override void Update(KeyType key)
         {
-            throw new NotImplementedException();
+            var node = CacheList.Single(node => EqualityComparer<KeyType>.Default.Equals(node.Key, key));
+            if (_updateAct(key) == UpdateAction.moveToEnd)
+            {
+                if (!IsKeyValuePairLast(key))
+                {
+                    CacheList.Remove(node);
+                    CacheList.AddLast(node);
+                }
+            }
+            else if (_updateAct(key) == UpdateAction.moveToFirst)
+            {
+                if (!IsKeyValuePairFirst(key))
+                {
+                    CacheList.Remove(node);
+                    CacheList.AddFirst(node);
+                }
+            }
         }
 
         /// <summary>
@@ -87,6 +103,10 @@ namespace NWaySetAssociateCache
         public bool IsKeyValuePairFirst(KeyType key)
         {
             return CacheList.First().Key.Equals(key);
+        }
+        public bool IsKeyValuePairLast(KeyType key)
+        {
+            return CacheList.Last().Key.Equals(key);
         }
     }
 
