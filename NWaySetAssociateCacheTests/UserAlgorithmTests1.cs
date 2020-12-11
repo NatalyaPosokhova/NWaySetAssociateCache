@@ -1,11 +1,8 @@
 ﻿using NUnit.Framework;
 using NWaySetAssociateCache;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+
 
 namespace NWaySetAssociateCacheTests
 {
@@ -72,5 +69,6 @@ namespace NWaySetAssociateCacheTests
             //Assert
             Assert.Throws<InvalidOperationException>(() => userAlgorithm.GetValue(key));
         }
+
     }
 }

@@ -96,7 +96,7 @@ namespace NWaySetAssociateCache
         }
 
         /// <summary>
-        /// Determines if key/value pair position in LRU cache list is first.
+        /// Determines if key/value pair position in cache list is first.
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -104,6 +104,12 @@ namespace NWaySetAssociateCache
         {
             return CacheList.First().Key.Equals(key);
         }
+
+        /// <summary>
+        ///  Determines if key/value pair position in cache list is last.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public bool IsKeyValuePairLast(KeyType key)
         {
             return CacheList.Last().Key.Equals(key);

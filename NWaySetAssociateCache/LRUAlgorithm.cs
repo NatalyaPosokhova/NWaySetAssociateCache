@@ -64,5 +64,4 @@ namespace NWaySetAssociateCache
             return CacheList.First().Key.Equals(key);
         }
     }
-
 }

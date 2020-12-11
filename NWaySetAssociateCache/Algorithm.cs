@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("NWaySetAssociateCacheTests")]
 namespace NWaySetAssociateCache
 {
     public abstract class Algorithm<KeyType, ValueType>
@@ -46,7 +47,7 @@ namespace NWaySetAssociateCache
         /// </summary>
         /// <param name="key"></param>
         /// <returns>Value</returns>
-        public ValueType GetValue(KeyType key)
+        internal ValueType GetValue(KeyType key)
         {
             return CacheList.Single(node => EqualityComparer<KeyType>.Default.Equals(node.Key, key)).Value;
         }
