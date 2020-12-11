@@ -52,7 +52,13 @@ namespace NWaySetAssociateCacheTests
         public void TryToRemoveShouldBeNotExist()
         {
             //Arrange
-            var key = userAlgorithm.GetKeyToRemove();
+            int cacheSize = 10;
+            int nSet = 5;
+            int key = 134;
+            string value = "2221";
+
+            var cache = new Cache<int, string>(cacheSize, nSet, userAlgorithm);
+            cache.Put(key, value);
 
             //Actual
             userAlgorithm.Remove();

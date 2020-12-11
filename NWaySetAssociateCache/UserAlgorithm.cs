@@ -45,7 +45,14 @@ namespace NWaySetAssociateCache
         /// <returns></returns>
         public override KeyType GetKeyToRemove()
         {
-            throw new NotImplementedException();
+            if (_removeAct() == RemoveAction.removeFirst)
+            {
+                return CacheList.First().Key;
+            }
+            else
+            {
+                return CacheList.Last().Key;
+            }
         }
 
         /// <summary>
@@ -53,7 +60,14 @@ namespace NWaySetAssociateCache
         /// </summary>
         public override void Remove()
         {
-            throw new NotImplementedException();
+            if (_removeAct() == RemoveAction.removeFirst)
+            {
+                CacheList.RemoveFirst();
+            }
+            else
+            {
+                CacheList.RemoveLast();
+            }
         }
 
         /// <summary>
