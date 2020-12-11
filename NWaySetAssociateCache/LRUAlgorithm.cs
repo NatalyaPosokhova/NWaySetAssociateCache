@@ -17,7 +17,7 @@ namespace NWaySetAssociateCache
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public override sealed void Add(KeyType key, ValueType value, Action<KeyType, ValueType> addAlgorithm = null)
+        public override void Add(KeyType key, ValueType value)
         {
             CacheList.AddFirst(new KeyValuePair<KeyType, ValueType>(key, value));
         }
@@ -26,7 +26,7 @@ namespace NWaySetAssociateCache
         /// Removes key/value pair from LRU cache list.
         /// </summary>
         /// <param name="key"></param>
-        public override sealed void Remove(Action<KeyType, ValueType> removeAlgorithm = null)
+        public override void Remove()
         {
             CacheList.RemoveLast();
         }
@@ -35,7 +35,7 @@ namespace NWaySetAssociateCache
         /// Gives key to remove node
         /// </summary>
         /// <returns></returns>
-        public override sealed KeyType GetKeyToRemove(Action<KeyType, ValueType> getKeyToRemoveAlgorithm = null)
+        public override KeyType GetKeyToRemove()
         {
             return CacheList.Last().Key;
         }
@@ -44,7 +44,7 @@ namespace NWaySetAssociateCache
         /// Updates the key/value pair position on first in LRU cache list.
         /// </summary>
         /// <param name="key"></param>
-        public override sealed void Update(KeyType key, Action<KeyType, ValueType> updateAlgorithm = null)
+        public override void Update(KeyType key)
         {
             var node = CacheList.Single(node => EqualityComparer<KeyType>.Default.Equals(node.Key, key));
             if (!IsKeyValuePairFirst(key))
@@ -54,15 +54,6 @@ namespace NWaySetAssociateCache
             }
         }
 
-        /// <summary>
-        /// Gets value from LRU cache list, created only for unit tests.
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns>Value</returns>
-        public ValueType GetValue(KeyType key)
-        {
-            return CacheList.Single(node => EqualityComparer<KeyType>.Default.Equals(node.Key, key)).Value;
-        }
         /// <summary>
         /// Determines if key/value pair position in LRU cache list is first.
         /// </summary>
