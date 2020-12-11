@@ -28,13 +28,14 @@ namespace NWaySetAssociateCache
         /// <param name="value"></param>
         public override void Add(KeyType key, ValueType value)
         {
+            var node = new KeyValuePair<KeyType, ValueType>(key, value);
             if (_addAct(key, value) == AddAction.addToFirst)
             {
-                CacheList.AddFirst(new KeyValuePair<KeyType, ValueType>(key, value));
+                CacheList.AddFirst(node);
             }
             else
             {
-                CacheList.AddLast(new KeyValuePair<KeyType, ValueType>(key, value));
+                CacheList.AddLast(node);
             }
         }
 
