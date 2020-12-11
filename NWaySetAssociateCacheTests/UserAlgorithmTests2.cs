@@ -48,5 +48,24 @@ namespace NWaySetAssociateCacheTests
             //Assert
             Assert.IsTrue(userAlgorithm.IsKeyValuePairLast(key1));
         }
+
+        [Test]
+        public void TryToRemoveShouldBeNotExist()
+        {
+            //Arrange
+            int cacheSize = 10;
+            int nSet = 5;
+            int key = 134;
+            string value = "2221";
+
+            var cache = new Cache<int, string>(cacheSize, nSet, userAlgorithm);
+            cache.Put(key, value);
+
+            //Actual
+            userAlgorithm.Remove();
+
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => userAlgorithm.GetValue(key));
+        }
     }
 }
